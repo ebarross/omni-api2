@@ -1,3 +1,5 @@
+
+
 const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
@@ -16,7 +18,7 @@ io.on('connection', socket => {
     });
 });
 
-mongoose.connect(proccess.env.MONGO_URL, {
+mongoose.connect(process.env.MONGO_URL, {
     useNewUrlParser: true
 });
 
@@ -33,4 +35,4 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', "uploads")
 
 app.use(require('./routes'));
 
-server.listen(proccess.env.PORT || 3000);
+server.listen(process.env.PORT || 3000);
