@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const cors = require('cors');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -27,7 +28,8 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(express.urlencoded({ extented: true }));
-app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
+app.use(morgan("dev"));
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', "uploads")));
 
 app.use(require('./routes'));
 
