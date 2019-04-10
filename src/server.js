@@ -5,8 +5,6 @@ const cors = require('cors');
 
 const app = express();
 
-app.use(cors());
-
 const server = require('http').Server(app);
 const io = require('socket.io')(server);
 
@@ -17,8 +15,11 @@ io.on('connection', socket => {
     });
 });
 
-mongoose.connect("mongodb+srv://ebarros:2974825@cluster0-6oiwh.mongodb.net/test?retryWrites=true", { useNewUrlParser: true });
+mongoose.connect(proccess.env.MONGO_URL, {
+    useNewUrlParser: true
+});
 
+app.use(cors());
 app.use((req, res, next) => {
     req.io = io;
     return next();
@@ -30,4 +31,4 @@ app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 app.use(require('./routes'));
 
-server.listen(proccess.env.POST || 3000);
+server.listen(proccess.env.PORT || 3000);
