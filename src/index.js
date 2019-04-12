@@ -13,7 +13,7 @@ const io = require('socket.io')(server);
 
 io.on('connection', socket => {
     console.log("ok");
-    socker.on('connectRoom', box => {
+    socket.on('connectRoom', box => {
         socket.join(box);
     });
 });
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(express.urlencoded({ extented: true }));
 app.use(morgan("dev"));
-app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp', "uploads")));
+app.use('/files', express.static(path.resolve(__dirname, '..', 'tmp')));
 
 app.use(require('./routes'));
 
